@@ -11,6 +11,5 @@ export default defineConfig({
           pages: '/src/pages',
           assets: '/src/assets'
         },
-      },
-      base: '/react_vite/',
+      }
     });

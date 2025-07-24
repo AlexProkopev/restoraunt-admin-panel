@@ -1,27 +1,51 @@
+import './index.css';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
-import SharedLayout from 'components/SharedLayout/SharedLayout';
-import FirstPage from 'pages/FirstPage/FirstPage';
-import SecondPage from 'pages/SecondPage/SecondPage';
-import HalfPage from 'pages/HalfPage/HalfPage';
-import ErrorPage from 'pages/ErrorPage/ErrorPage';
-import { AppWrapper } from './App.styled';
-
-const test = import.meta.env.VITE_API_TEST;
+import ErrorPage from './Page/ErrorPage.jsx';
+import SwitchTheme from './Components/SwitchTheme/SwitchTheme.jsx';
+import { useEffect, useState } from 'react';
+import { darkTheme, lightTheme, theemeFromLocal } from './Themes/Themes.jsx';
+import { useDispatch } from 'react-redux';
+import { refreshThunk } from './redux/authentification/services.js';
+import { ROUTES } from './routes/Routes.jsx';
 
 function App() {
-  console.log(test);
+  const [isDark, setIsDark] = useState(theemeFromLocal);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshThunk());
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }, [isDark, dispatch]);
+
   return (
-    <AppWrapper>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <CssBaseline />
+      <SwitchTheme isDark={isDark} setIsDark={setIsDark} />
       <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route path="/first" element={<FirstPage />} />
-          <Route path="/second" element={<SecondPage />}>
-            <Route path=":half" element={<HalfPage />} />
-          </Route>
-          <Route path="*" element={<ErrorPage />} />
-        </Route>
+        {ROUTES.map(({ path, element, children }) => {
+          if (children) {
+            return (
+              <Route key={path} path={path} element={element}>
+                {children.map(
+                  ({ path: childPath, element: childElement, index }) => (
+                    <Route
+                      key={childPath || 'index'}
+                      path={childPath}
+                      index={index}
+                      element={childElement}
+                    />
+                  )
+                )}
+              </Route>
+            );
+          }
+          return <Route key={path} path={path} element={element} />;
+        })}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </AppWrapper>
+    </ThemeProvider>
   );
 }
+
 export default App;
