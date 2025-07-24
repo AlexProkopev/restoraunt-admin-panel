@@ -1,15 +1,15 @@
-import Orders from "../Components/Orders/Orders";
+import Orders from "../components/Orders/Orders";
 
 import Login from "../Page/Login/Login";
-import Layout from "../Components/Layout/Layout";
+import Layout from "../components/Layout/Layout";
 import PrivateRoute from "./PrivateRoute";
 import RestrictedRoute from "./RestrictedRoute";
-import Tables from "../Components/Tables/Tables";
-import Menu from "../Components/Menu/Menu";
-import Staffs from "../Components/Staffs/Staffs";
-import Statistics from "../Components/Statistics/Statistics";
-import Settings from "../Components/Settings/Settings";
-import Reviews from "../Components/Reviews/Reviews";
+import Tables from "../components/Tables/Tables";
+import Menu from "../components/Menu/Menu";
+import Staffs from "../components/Staffs/Staffs";
+import Statistics from "../components/Statistics/Statistics";
+import Settings from "../components/Settings/Settings";
+import Reviews from "../components/Reviews/Reviews";
 
 export const LOGIN_PAGE = "/login";
 export const ORDERS_PAGE = "/orders";

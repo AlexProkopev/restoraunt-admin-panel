@@ -2,7 +2,7 @@ import './index.css';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 import ErrorPage from './Page/ErrorPage.jsx';
-import SwitchTheme from './Components/SwitchTheme/SwitchTheme.jsx';
+import SwitchTheme from './components/SwitchTheme/SwitchTheme.jsx';
 import { useEffect, useState } from 'react';
 import { darkTheme, lightTheme, theemeFromLocal } from './Themes/Themes.jsx';
 import { useDispatch } from 'react-redux';
