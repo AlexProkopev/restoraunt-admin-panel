@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import UniversalModal from '../UniversalModal/UniversalModal';
 import * as yup from 'yup';
 import css from './CreateButton.module.css';
@@ -73,6 +73,6 @@ const CreateButton = ({
   );
 };
 
-export default React.memo(CreateButton);
+export default CreateButton
 
 
