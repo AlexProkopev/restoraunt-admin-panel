@@ -8,8 +8,10 @@ import { fetchTables } from '../../redux/tables/services';
 import CreateDataForm from '../CreateDataForm/CreateDataForm';
 import schema from '../../validationForm/createForm';
 
+
 function Orders() {
   const dispatch = useDispatch();
+
 
   const initialForm = {
     date: '',
@@ -32,6 +34,9 @@ function Orders() {
   const afterCreateOrder = () => {
     dispatch(fetchOrders());
   };
+
+
+  
 
   return (
     <Box display="flex" flexDirection="column" gap={2} mt={1}>

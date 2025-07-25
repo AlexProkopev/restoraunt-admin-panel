@@ -1,16 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "../../redux/orders/services";
-import { selectOrders } from "../../redux/orders/orders.selectors";
+import { selectOrders, selectOrdersIsLoading } from "../../redux/orders/orders.selectors";
 import OrdersTable from "../OrdersTable.js/OrdersTable";
 import UniversalModal from "../UniversalModal/UniversalModal";
 import { Box, TextField } from "@mui/material";
 import useEditableData from "../../hooks/useEditableData";
+import Loader from "../Loader/Loader";
 
 function OrdersList() {
   const dispatch = useDispatch();
- 
-
+  
+  const isLoading = useSelector(selectOrdersIsLoading)
   const ordersData = useSelector(selectOrders);
   const {
     openModal,
@@ -27,6 +28,10 @@ function OrdersList() {
    useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);
+
+   if (isLoading) {
+    return <Loader />
+  }
   return (
     ordersData !== null && (
       <>

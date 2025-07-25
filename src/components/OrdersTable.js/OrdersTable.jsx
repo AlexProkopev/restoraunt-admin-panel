@@ -8,7 +8,6 @@ import {
   TablePagination,
   Paper,
   Box,
-  Typography,
 } from '@mui/material';
 import {
   flexRender,
@@ -19,6 +18,8 @@ import {
 import { getColumns } from './config';
 import { useSelector } from 'react-redux';
 import { selectTables } from '../../redux/tables/tables.selectors';
+import ErrorsComponent from '../ErrorsComponent/ErrorsComponent';
+
 
 const OrdersTable = ({
   data,
@@ -27,7 +28,7 @@ const OrdersTable = ({
   handleStatusChange,
   handleDateChange,
 }) => {
-     const tables = useSelector(selectTables);
+  const tables = useSelector(selectTables);
   const columns = getColumns(
     onEdit,
     onDelete,
@@ -35,22 +36,15 @@ const OrdersTable = ({
     handleDateChange,
     tables
   );
-
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
-
   if (data.length === 0) {
-    return (
-      <Box>
-        <Typography>Ни одной брони не найдено</Typography>
-      </Box>
-    );
+    return <ErrorsComponent>Ни одной брони не найдено</ErrorsComponent>;
   }
-
   return (
     <Paper sx={{ width: '100%' }}>
       <TableContainer component={Box} sx={{ overflowX: 'auto' }}>
