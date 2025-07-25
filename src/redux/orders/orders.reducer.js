@@ -21,7 +21,7 @@ const ordersRequest = createSlice({
   initialState,
   reducers: {
     addBooking(state, { payload }) {
-      state.orders.push(payload);
+      state.orders.unshift(payload);
     },
     deleteBooking(state, { payload }) {
       state.orders = state.orders.filter((order) => order._id !== payload);
@@ -71,10 +71,10 @@ const ordersRequest = createSlice({
         state.isLoading = false;
         state.isError = payload;
       })
-      .addCase(deleteBookingThunk.fulfilled, (state, { payload }) => {
+      .addCase(deleteBookingThunk.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(deleteBookingThunk.pending, (state, { payload }) => {
+      .addCase(deleteBookingThunk.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
       })

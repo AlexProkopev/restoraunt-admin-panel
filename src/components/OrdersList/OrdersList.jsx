@@ -9,6 +9,8 @@ import useEditableData from "../../hooks/useEditableData";
 
 function OrdersList() {
   const dispatch = useDispatch();
+ 
+
   const ordersData = useSelector(selectOrders);
   const {
     openModal,
@@ -22,10 +24,9 @@ function OrdersList() {
     handleDateChange,
   } = useEditableData();
 
-  useEffect(() => {
+   useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);
-
   return (
     ordersData !== null && (
       <>

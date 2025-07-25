@@ -8,14 +8,17 @@ import {
   TablePagination,
   Paper,
   Box,
-} from "@mui/material";
+  Typography,
+} from '@mui/material';
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
-} from "@tanstack/react-table";
-import { getColumns } from "./config";
+} from '@tanstack/react-table';
+import { getColumns } from './config';
+import { useSelector } from 'react-redux';
+import { selectTables } from '../../redux/tables/tables.selectors';
 
 const OrdersTable = ({
   data,
@@ -24,11 +27,13 @@ const OrdersTable = ({
   handleStatusChange,
   handleDateChange,
 }) => {
+     const tables = useSelector(selectTables);
   const columns = getColumns(
     onEdit,
     onDelete,
     handleStatusChange,
-    handleDateChange
+    handleDateChange,
+    tables
   );
 
   const table = useReactTable({
@@ -38,10 +43,18 @@ const OrdersTable = ({
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  if (data.length === 0) {
+    return (
+      <Box>
+        <Typography>Ни одной брони не найдено</Typography>
+      </Box>
+    );
+  }
+
   return (
-    <Paper sx={{ width: "100%" }}>
-      <TableContainer component={Box} sx={{ overflowX: "auto" }}>
-        <Table sx={{ overflowX: "hidden" }}>
+    <Paper sx={{ width: '100%' }}>
+      <TableContainer component={Box} sx={{ overflowX: 'auto' }}>
+        <Table sx={{ overflowX: 'hidden' }}>
           <TableHead>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -56,7 +69,7 @@ const OrdersTable = ({
               </TableRow>
             ))}
           </TableHead>
-          <TableBody >
+          <TableBody>
             {table.getRowModel().rows.map((row) => (
               <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (
@@ -69,35 +82,33 @@ const OrdersTable = ({
           </TableBody>
         </Table>
         <TablePagination
-        component="div"
-        sx={{
-          width: { xs: "310px", sm: "100%" },
-          "& .MuiTablePagination-toolbar": {
-            flexDirection: { xs: "flex", sm: "row" },
-            flexWrap: { xs: "wrap"},
-            alignItems: { xs: "center", sm: "center" },
-            gap: 1,
-          },
-          "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows":
-            {
-              fontSize: { xs: "12px", sm: "14px" },
+          component="div"
+          sx={{
+            width: { xs: '310px', sm: '100%' },
+            '& .MuiTablePagination-toolbar': {
+              flexDirection: { xs: 'flex', sm: 'row' },
+              flexWrap: { xs: 'wrap' },
+              alignItems: { xs: 'center', sm: 'center' },
+              gap: 1,
             },
-          "& .MuiTablePagination-actions": {
-            marginLeft: { xs: 0, sm: 2 },
-          },
-        }}
-        count={data.length}
-        page={table.getState().pagination.pageIndex}
-        onPageChange={(_, page) => table.setPageIndex(page)}
-        rowsPerPage={table.getState().pagination.pageSize}
-        onRowsPerPageChange={(e) => {
-          table.setPageSize(Number(e.target.value));
-        }}
-        rowsPerPageOptions={[3, 5, 10]}
-      />
+            '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows':
+              {
+                fontSize: { xs: '12px', sm: '14px' },
+              },
+            '& .MuiTablePagination-actions': {
+              marginLeft: { xs: 0, sm: 2 },
+            },
+          }}
+          count={data.length}
+          page={table.getState().pagination.pageIndex}
+          onPageChange={(_, page) => table.setPageIndex(page)}
+          rowsPerPage={table.getState().pagination.pageSize}
+          onRowsPerPageChange={(e) => {
+            table.setPageSize(Number(e.target.value));
+          }}
+          rowsPerPageOptions={[3, 5, 10]}
+        />
       </TableContainer>
-
-      
     </Paper>
   );
 };

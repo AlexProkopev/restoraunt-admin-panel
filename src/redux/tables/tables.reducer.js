@@ -50,10 +50,10 @@ const tableReducerState = createSlice({
         state.isLoading = false;
         state.isError = payload;
       })
-      .addCase(deleteTablesThunk.fulfilled, (state, { payload }) => {
+      .addCase(deleteTablesThunk.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(deleteTablesThunk.pending, (state, { payload }) => {
+      .addCase(deleteTablesThunk.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
       })

@@ -45,7 +45,7 @@ const useEditableData = () => {
     const handleStatusChange = (id, newStatus) => {
         dispatch(updateOrderThunk({ id, updateData: { status: newStatus } }))
           .unwrap()
-          .catch((err) => {
+          .catch(() => {
             Notify.failure("Ошибка обработки");
           });
       };
@@ -53,7 +53,7 @@ const useEditableData = () => {
        const handleDateChange = (id, newDate) => {
         dispatch(updateOrderThunk({ id, updateData: { date: newDate } }))
           .unwrap()
-          .catch((err) => {
+          .catch(() => {
             Notify.failure("Ошибка обработки даты");
           });
       };

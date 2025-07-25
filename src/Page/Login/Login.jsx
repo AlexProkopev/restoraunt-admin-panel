@@ -1,7 +1,6 @@
-
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import {
   Button,
   TextField,
@@ -9,12 +8,13 @@ import {
   Box,
   Slide,
   useTheme,
-} from "@mui/material";
-import { selectIsLoading } from "../../redux/authentification/authentication.selectors";
-import { useForm } from "./useForm";
-import { button, container, inputField, title } from "./Login.styles";
-import { fetchUser } from "../../redux/authentification/services";
-import { HOME_PAGE } from "../../routes/Routes";
+} from '@mui/material';
+import { selectIsLoading } from '../../redux/authentification/authentication.selectors';
+import { useForm } from './useForm';
+import { button, container, inputField, title } from './Login.styles';
+import { fetchUser } from '../../redux/authentification/services';
+import { HOME_PAGE } from '../../routes/Routes';
+import Loader from '../../components/Loader/Loader';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -24,8 +24,8 @@ const Login = () => {
   const theme = useTheme();
   const location = useLocation();
   const { formData, errors, handleChange, validate, setErrors } = useForm({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
   const from = location.state?.from?.pathname || HOME_PAGE;
   const handleSubmit = (e) => {
@@ -39,20 +39,20 @@ const Login = () => {
         .unwrap()
         .then(() => navigate(from, { replace: true }))
         .catch(() => {
-          enqueueSnackbar("Ошибка при входе, попробуйте снова", {
-            variant: "error",
+          enqueueSnackbar('Ошибка при входе, попробуйте снова', {
+            variant: 'error',
           });
         });
     } else {
       setErrors(validationErrors);
       Object.values(validationErrors).forEach((error) => {
-        enqueueSnackbar(error, { variant: "error" });
+        enqueueSnackbar(error, { variant: 'error' });
       });
     }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Loader />;
   }
 
   return (

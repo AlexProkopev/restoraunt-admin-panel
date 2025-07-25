@@ -7,7 +7,7 @@ export const fetchTables = createAsyncThunk(
   "tables/fetchTables",
   async (_, thunkApi) => {
     try {
-      const response  = await instance.get(`api/tables`);
+      const response  = await instance.get(`api/table`);
       return response.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.message);
@@ -19,7 +19,7 @@ export const fetchTablesById = createAsyncThunk(
   'tables/fetchTablesById',
   async (id, thunkApi) => {
     try {
-      const response = await instance.get(`tables/${id}`);
+      const response = await instance.get(`table/${id}`);
       return response.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.message);
@@ -32,7 +32,7 @@ export const fetchTablesById = createAsyncThunk(
     async (contactData, thunkApi) => {
       try {
         const { data } = await instance.post(
-          `/api/tables`,
+          `/api/table`,
           contactData
         );
      
@@ -51,7 +51,7 @@ export const deleteTablesThunk = createAsyncThunk(
     async (id, thunkApi) => {
       try {
         const { data } = await instance.delete(
-          `/api/tables/${id}`
+          `/api/table/${id}`
         );
         
         return data;

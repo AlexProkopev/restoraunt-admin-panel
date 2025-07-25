@@ -33,6 +33,7 @@ const authentifitacionSlice = createSlice({
         Notify.success("Log In successful");
       })
       .addCase(refreshThunk.pending, (state) => {
+       state.isLoading = true
         state.isRefreshing = true;
       })
       .addCase(refreshThunk.fulfilled, (state, { payload }) => {

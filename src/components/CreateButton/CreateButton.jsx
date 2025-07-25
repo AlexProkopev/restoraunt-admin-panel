@@ -1,77 +1,78 @@
-import { useState } from "react";
-import { TextField, Box} from "@mui/material";
-import UniversalModal from "../UniversalModal/UniversalModal";
-import css from "./CreateButton.module.css";
+import React, { useState } from 'react';
+import UniversalModal from '../UniversalModal/UniversalModal';
+import * as yup from 'yup';
+import css from './CreateButton.module.css';
 
-const CreateButton = ({ onCreate, initialForm}) => {
+const CreateButton = ({
+  onCreate,
+  initialForm,
+  validationSchema,
+  afterCreate,
+  FormComponent,
+  title = 'Создать',
+  submitLabel = 'Создать',
+}) => {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (field, value) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    const newForm = { ...form, [field]: value };
+    setForm(newForm);
+
+    validationSchema
+      .validateAt(field, newForm)
+      .then(() => {
+        setErrors((prev) => ({ ...prev, [field]: '' }));
+      })
+      .catch((err) => {
+        setErrors((prev) => ({ ...prev, [field]: err.message }));
+      });
   };
 
-  const handleSubmit = () => {
-    onCreate(form);
-    setOpen(false);
-    setForm(initialForm);
-    
+  const handleSubmit = async () => {
+    try {
+      await validationSchema.validate(form, { abortEarly: false });
+      await onCreate(form);
+      setOpen(false);
+      setForm(initialForm);
+      setErrors({});
+      if (afterCreate) afterCreate();
+    } catch (err) {
+      if (err instanceof yup.ValidationError) {
+        const formErrors = err.inner.reduce((acc, curr) => {
+          acc[curr.path] = curr.message;
+          return acc;
+        }, {});
+        setErrors(formErrors);
+      }
+    }
   };
 
   return (
     <>
-      <button
-        className={css.Btn}
-        onClick={() => setOpen(true)}
-      >
+      <button className={css.Btn} onClick={() => setOpen(true)}>
         <div className={css.sign}>+</div>
-        <div className={css.text}>Добавить</div>
+        <div className={css.text}>{title}</div>
       </button>
 
       <UniversalModal
         open={open}
         onClose={() => setOpen(false)}
-        title="Новая бронь"
+        title={title}
         onSubmit={handleSubmit}
-        submitLabel="Создать"
+        submitLabel={submitLabel}
       >
-        <Box display="flex" flexDirection="column" gap={2} mt={1}>
-          <TextField
-            label="Имя"
-            value={form.name}
-            onChange={(e) => handleChange("name", e.target.value)}
-          />
-          <TextField
-            label="Телефон"
-            value={form.phone}
-            onChange={(e) => handleChange("phone", e.target.value)}
-          />
-          <TextField
-            label="Дата и время"
-            type="datetime-local"
-            value={form.date}
-            onChange={(e) => handleChange("date", e.target.value)}
-          />
-          <TextField
-            label="Гостей"
-            type="number"
-            value={form.guests}
-            onChange={(e) => handleChange("guests", e.target.value)}
-          />
-          {/* <TextField
-            label="Стол"
-            value={form.table}
-            onChange={(e) => handleChange('table', e.target.value)}
-          /> */}
-          <TextField
-            label="Заметки"
-            value={form.notes}
-            onChange={(e) => handleChange("notes", e.target.value)}
-          />
-        </Box>
+        <FormComponent
+          form={form}
+          handleChange={handleChange}
+          errors={errors}
+        />
       </UniversalModal>
     </>
   );
 };
 
-export default CreateButton;
+export default React.memo(CreateButton);
+
+
