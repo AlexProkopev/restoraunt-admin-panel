@@ -1,4 +1,4 @@
-import   { useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   TextField,
   Box,
@@ -16,18 +16,19 @@ import { selectTables } from '../../redux/tables/tables.selectors';
 import { fetchTables } from '../../redux/tables/services';
 
 const CreateDataForm = ({ form, handleChange, errors }) => {
-     const tableData = useSelector(selectTables);
-      const dispatch = useDispatch();
-    
-      useEffect(() => {
-        dispatch(fetchTables());
-      }, [dispatch]);
+  const tableData = useSelector(selectTables);
+  const dispatch = useDispatch();
 
-       const tableFilterData = tableData
+  useEffect(() => {
+    dispatch(fetchTables());
+  }, [dispatch]);
+
+  const tableFilterData = tableData
     ?.filter((table) => !table.isOccupied)
-    .map((table) => (
-      { label: `Стол №${table.number} (${table.seats} места)`, value: table._id }
-    ));
+    .map((table) => ({
+      label: `Стол №${table.number} (${table.seats} места)`,
+      value: table._id,
+    }));
 
   return (
     <Box display="flex" flexDirection="column" gap={2} mt={1}>

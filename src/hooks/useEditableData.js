@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteBookingThunk, fetchOrders, updateOrderThunk } from "../redux/orders/services";
 import { Notify } from 'notiflix';
+import { deleteTablesThunk, fetchTables } from "../redux/tables/services";
 
 const useEditableData = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -42,6 +43,15 @@ const useEditableData = () => {
       }
     };
 
+     const handleDeleteTable = async (tableId) => {
+      try {
+        await dispatch(deleteTablesThunk(tableId));
+        dispatch(fetchTables());
+      } catch (error) {
+        Notify.failure(error.message);
+      }
+    };
+
     const handleStatusChange = (id, newStatus) => {
         dispatch(updateOrderThunk({ id, updateData: { status: newStatus } }))
           .unwrap()
@@ -69,7 +79,8 @@ const useEditableData = () => {
     handleSubmit,
     handleDelete,
     handleStatusChange,
-    handleDateChange
+    handleDateChange,
+    handleDeleteTable
   };
 };
 

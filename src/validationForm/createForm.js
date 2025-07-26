@@ -1,3 +1,4 @@
+
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
@@ -15,6 +16,15 @@ const schema = yup.object().shape({
     .required('Укажите количество гостей'),
   table: yup.string().required('Выберите стол'),
   notes: yup.string().max(300, 'Макс. 300 символов'),
+});
+
+export const schemaCreateTable = yup.object().shape({
+ number: yup.number().required('Номер стола обязателен'),
+  seats: yup
+    .number()
+    .required('Количество гостей обязателено'),
+    
+  location: yup.string().required('Локация обязательна'),
 });
 
 export default schema

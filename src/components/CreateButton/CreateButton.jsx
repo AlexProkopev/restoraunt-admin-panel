@@ -1,6 +1,5 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import UniversalModal from '../UniversalModal/UniversalModal';
-import * as yup from 'yup';
 import css from './CreateButton.module.css';
 
 const CreateButton = ({
@@ -17,34 +16,38 @@ const CreateButton = ({
   const [errors, setErrors] = useState({});
 
   const handleChange = (field, value) => {
-    const newForm = { ...form, [field]: value };
-    setForm(newForm);
+    const updatedForm = { ...form, [field]: value };
+    setForm(updatedForm);
 
-    validationSchema
-      .validateAt(field, newForm)
-      .then(() => {
-        setErrors((prev) => ({ ...prev, [field]: '' }));
-      })
-      .catch((err) => {
-        setErrors((prev) => ({ ...prev, [field]: err.message }));
-      });
+    if (validationSchema) {
+      validationSchema
+        .validateAt(field, updatedForm)
+        .then(() => {
+          setErrors((prev) => ({ ...prev, [field]: '' }));
+        })
+        .catch((err) => {
+          setErrors((prev) => ({ ...prev, [field]: err.message }));
+        });
+    }
   };
 
   const handleSubmit = async () => {
     try {
-      await validationSchema.validate(form, { abortEarly: false });
+      if (validationSchema) {
+        await validationSchema.validate(form, { abortEarly: false });
+      }
       await onCreate(form);
       setOpen(false);
       setForm(initialForm);
       setErrors({});
       if (afterCreate) afterCreate();
     } catch (err) {
-      if (err instanceof yup.ValidationError) {
-        const formErrors = err.inner.reduce((acc, curr) => {
-          acc[curr.path] = curr.message;
+      if (err.name === 'ValidationError') {
+        const newErrors = err.inner.reduce((acc, curr) => {
+          if (curr.path) acc[curr.path] = curr.message;
           return acc;
         }, {});
-        setErrors(formErrors);
+        setErrors(newErrors);
       }
     }
   };
@@ -73,6 +76,4 @@ const CreateButton = ({
   );
 };
 
-export default CreateButton
-
-
+export default CreateButton;
