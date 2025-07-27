@@ -94,9 +94,10 @@ const ordersRequest = createSlice({
           state.orders = [payload];
         }
       })
-      .addCase(addOrderThunk.rejected, (state, { payload }) => {
+      .addCase(addOrderThunk.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = payload;
+        state.isError = action.payload;
+        console.log('Ошибка при добавлении:', action);
       });
   },
 });

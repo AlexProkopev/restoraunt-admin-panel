@@ -30,7 +30,7 @@ const authentifitacionSlice = createSlice({
         state.token = payload.accessToken;
         state.userData = payload.user;
         state.role = payload.role;
-        Notify.success("Log In successful");
+        Notify.success("Успешный вход");
       })
       .addCase(refreshThunk.pending, (state) => {
        state.isLoading = true

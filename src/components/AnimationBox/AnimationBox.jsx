@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import { animationBoxStyles, animationTransition, animationY, textStyles } from './AnimationBox.styled';
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 function AnimationBox({children}) {
   return (

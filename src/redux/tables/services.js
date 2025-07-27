@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../basic_url";
-import Notify from "notifyjs";
 
 
 export const fetchTables = createAsyncThunk(
@@ -38,7 +37,6 @@ export const fetchTablesById = createAsyncThunk(
      
         return data;
       } catch (err) {
-        Notify.failure('Что-то пошло не так');
         return thunkApi.rejectWithValue(err.message);
       }
     }
@@ -56,7 +54,6 @@ export const deleteTablesThunk = createAsyncThunk(
         
         return data;
       } catch (err) {
-        Notify.failure('Что-то пошло не так');
         return thunkApi.rejectWithValue(err.message);
       }
     }

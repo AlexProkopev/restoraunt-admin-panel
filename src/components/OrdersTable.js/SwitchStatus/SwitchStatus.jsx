@@ -16,6 +16,7 @@ function SwitchStatus({ row, handleStatusChange, getValue }) {
             handleStatusChange(row.original._id, newStatus);
           }}
           color="primary"
+          disabled={isOnPlace}
         />
       }
       label={status}

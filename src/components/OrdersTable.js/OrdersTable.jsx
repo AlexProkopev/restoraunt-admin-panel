@@ -19,6 +19,7 @@ import { getColumns } from './config';
 import { useSelector } from 'react-redux';
 import { selectTables } from '../../redux/tables/tables.selectors';
 import ErrorsComponent from '../ErrorsComponent/ErrorsComponent';
+import { useMemo } from 'react';
 
 
 const OrdersTable = ({
@@ -29,13 +30,14 @@ const OrdersTable = ({
   handleDateChange,
 }) => {
   const tables = useSelector(selectTables);
-  const columns = getColumns(
+  const columns = useMemo(() => getColumns(
     onEdit,
     onDelete,
     handleStatusChange,
     handleDateChange,
     tables
-  );
+  ), [onEdit, onDelete, handleStatusChange, handleDateChange, tables]);
+
   const table = useReactTable({
     data,
     columns,
