@@ -1,34 +1,13 @@
-
-import {
-  TextField,
-  Box,
-} from '@mui/material';
+import { Box } from '@mui/material';
+import { LocationField, NumberField, SeatsField } from './field/AllField';
+import { container } from './CreateDataTableForm.styles';
 
 const CreateDataTableForm = ({ form, handleChange, errors }) => {
   return (
-    <Box display="flex" flexDirection="column" gap={2} mt={1}>
-      <TextField
-        label="Расположение"
-        value={form.location}
-        onChange={(e) => handleChange('location', e.target.value)}
-        error={!!errors?.name}
-        helperText={errors?.name}
-      />
-      <TextField
-        label="Номер стола"
-        value={form.number}
-        onChange={(e) => handleChange('number', e.target.value)}
-        error={!!errors?.phone}
-        helperText={errors?.phone}
-      />
-      <TextField
-        label="Вместимость"
-        type="number"
-        value={form.seats}
-        onChange={(e) => handleChange('seats', e.target.value)}
-        error={!!errors?.guests}
-        helperText={errors?.guests}
-      />
+    <Box sx={container}>
+      <LocationField value={form.location} onChange={handleChange} error={errors?.location} />
+      <NumberField value={form.number} onChange={handleChange} error={errors?.number} />
+      <SeatsField value={form.seats} onChange={handleChange} error={errors?.seats} />
     </Box>
   );
 };

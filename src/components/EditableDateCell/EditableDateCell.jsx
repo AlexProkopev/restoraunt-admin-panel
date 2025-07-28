@@ -20,14 +20,7 @@ function EditableDateCell({ initialValue, id, onChange }) {
 
   if (editing) {
     return (
-      <TextField
-        type="datetime-local"
-        value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        autoFocus
-        size="small"
-      />
+      <TextField type="datetime-local" value={value} onChange={handleChange} onBlur={handleBlur} autoFocus size="small" />
     );
   }
 

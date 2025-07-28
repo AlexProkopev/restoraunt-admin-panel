@@ -1,28 +1,32 @@
-import { FormControlLabel, Switch } from "@mui/material";
+import { FormControlLabel } from '@mui/material';
+import css from './SwitchStatus.module.css'
 
-
-function SwitchStatus({ row, handleStatusChange, getValue }) {
+const SwitchStatus = ({ row, handleStatusChange, getValue }) => {
   const status = getValue();
-  const isOnPlace = status === "На месте";
+  const isOnPlace = status === 'На месте';
+
+  const id = `switch-${row.original._id}`;
+
+  const onChangeHandler = () => {
+    const newStatus = isOnPlace ? 'Ожидаем' : 'На месте';
+    handleStatusChange(row.original._id, newStatus);
+  };
 
   return (
     <FormControlLabel
       control={
-        <Switch
-          size="small"
-          checked={isOnPlace}
-          onChange={() => {
-            const newStatus = isOnPlace ? "Ожидаем" : "На месте";
-            handleStatusChange(row.original._id, newStatus);
-          }}
-          color="primary"
-          disabled={isOnPlace}
-        />
+        <div className={css.switch}>
+          <input type="checkbox"  id={id} className={css.switchCheck} checked={isOnPlace} onChange={onChangeHandler} disabled={isOnPlace} />
+          <label  className={`${css.switchLabel} ${isOnPlace ? css.disabled : ''}`} htmlFor={id}>
+            Check
+            <span></span>
+          </label>
+        </div>
       }
       label={status}
       labelPlacement="bottom"
     />
   );
-}
+};
 
 export default SwitchStatus;
