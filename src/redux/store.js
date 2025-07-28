@@ -11,7 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { authentifitacionReduces } from "./authentification/authentication.reducer";
-import { ordersReduser } from "./orders/orders.reducer";
+import { ordersReducer } from "./orders/orders.reducer";
 import { tableReducer } from "./tables/tables.reducer";
 
 const userConfig = {
@@ -23,7 +23,7 @@ const userConfig = {
 export const store = configureStore({
   reducer: {
     authStore: persistReducer(userConfig, authentifitacionReduces),
-    ordersStore: ordersReduser,
+    ordersStore: ordersReducer,
     tableStore: tableReducer,
   },
   middleware: (getDefaultMiddleware) =>

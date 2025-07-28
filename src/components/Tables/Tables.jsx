@@ -3,25 +3,33 @@ import TablesList from '../TablesList/TablesList';
 import Loader from '../Loader/Loader';
 import CreateButton from '../CreateButton/CreateButton';
 import CreateDataTableForm from '../CreateDataTableForm/CreateDataTableForm';
-import UniversalModal from '../UniversalModal/UniversalModal';
 import { schemaCreateTable } from '../../validationForm/createForm';
 import { stylesTable } from './Tables.styles';
 import { useTables } from '../../hooks/useTables';
+import { useTableFilters } from '../../hooks/useTableFilters';
+import FilterBySeats from './TablesFilters/FilterBySeats';
+import FilterByOccupancy from './TablesFilters/FilterByOccupancy';
+import FilterByLocation from './TablesFilters/FilterByLocation';
+import { useSelector } from 'react-redux';
+import { selectTablesIsLoading } from '../../redux/tables/tables.selectors';
 
 const Tables = () => {
-  const { isLoading, dataTables, open, setOpen, initialStateForm, onCreateTable } = useTables();
+  const isLoading = useSelector(selectTablesIsLoading)
+  const { dataTables, initialStateForm, onCreateTable } = useTables();
+  const { filteredTables, filters, handleFilterChange } = useTableFilters(dataTables);
 
   if (isLoading) return <Loader />;
 
   return (
     <>
-      <Box>
-        <CreateButton onCreate={onCreateTable} initialForm={initialStateForm} validationSchema={schemaCreateTable} afterCreate={() => console.log('ss')} 
-         FormComponent={CreateDataTableForm}/>
-        <List sx={stylesTable}>{dataTables?.map((data) => <TablesList key={data.number} dataList={data} />)}</List>
+      <CreateButton onCreate={onCreateTable} initialForm={initialStateForm} validationSchema={schemaCreateTable} FormComponent={CreateDataTableForm}
+      />
+      <Box display="flex" gap={2} mb={2}>
+        <FilterBySeats value={filters.seats} onChange={handleFilterChange} />
+        <FilterByOccupancy value={filters.isOccupied} onChange={handleFilterChange} />
+        <FilterByLocation value={filters.location} onChange={handleFilterChange} />
       </Box>
-
-      <UniversalModal open={open} onClose={() => setOpen(false)} title="Закрыть" onSubmit={() => setOpen(false)} submitLabel="Закрыть"/>
+      <List sx={stylesTable}>{filteredTables?.map((data) => <TablesList key={data._id} dataList={data} />)}</List>
     </>
   );
 };

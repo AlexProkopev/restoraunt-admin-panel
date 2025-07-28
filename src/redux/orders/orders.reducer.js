@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-import { Notify } from "notiflix";
 import {
   addOrderThunk,
   deleteBookingThunk,
@@ -26,6 +24,12 @@ const ordersRequest = createSlice({
     deleteBooking(state, { payload }) {
       state.orders = state.orders.filter((order) => order._id !== payload);
     },
+    clearState(state) {
+     state.orders = null
+     state.ordersDetails = null
+    },
+    
+    
   },
   extraReducers: (builder) => {
     builder
@@ -40,7 +44,7 @@ const ordersRequest = createSlice({
       .addCase(fetchOrders.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.isError = payload;
-        Notify.failure("Произошла ошибка, попробуйте ещё");
+        
       })
       .addCase(fetchOrderById.pending, (state) => {
         state.isLoading = true;
@@ -102,5 +106,5 @@ const ordersRequest = createSlice({
   },
 });
 
-export const ordersReduser = ordersRequest.reducer;
-export const {addBooking, deleteBooking} = ordersRequest.actions
+export const ordersReducer = ordersRequest.reducer;
+export const {addBooking, deleteBooking,clearState} = ordersRequest.actions

@@ -12,5 +12,8 @@ export const cardContentStyle = {
           flexDirection: 'column',
           gap: '15px',
           alignItems: 'center',
+          '&:hover':{
+            cursor: 'pointer',
+          }
         }
 export const cardTextStyle = { textAlign: 'center' }

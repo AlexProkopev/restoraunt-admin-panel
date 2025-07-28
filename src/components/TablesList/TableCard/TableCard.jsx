@@ -10,7 +10,8 @@ function TableCard({ data, onOpen }) {
   const { handleDeleteTable } = useEditableData();
 
   return (
-    <Card onClick={onOpen} sx={cardStyle} >
+  
+     <Card onClick={onOpen} sx={cardStyle} >
       <CardContent sx={cardContentStyle}>
         <TablesOccupied styleClassName={isOccupied ? 'loader__circle_isOccupied' : 'loader__circle'} status={isOccupied ? 'Стол занят' : 'Стол свободен'} />
         <Typography variant="h5" sx={cardTextStyle}> {location}</Typography>
@@ -19,6 +20,7 @@ function TableCard({ data, onOpen }) {
         <DeleteButton onDelete={handleDeleteTable} deletedObjectId={_id} />
       </CardContent>
     </Card>
+
   );
 }
 

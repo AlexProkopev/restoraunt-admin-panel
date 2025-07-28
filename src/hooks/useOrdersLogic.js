@@ -3,8 +3,8 @@ import { useEffect, useMemo } from 'react';
 import { fetchTables } from '../redux/tables/services';
 import { addOrderThunk } from '../redux/orders/services';
 import { selectOrdersError } from '../redux/orders/orders.selectors';
-import Notify from 'notifyjs';
 import schema from '../validationForm/createForm';
+import { Notify } from 'notiflix';
 
 export function useOrdersLogic() {
   const dispatch = useDispatch();

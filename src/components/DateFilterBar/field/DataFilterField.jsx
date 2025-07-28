@@ -27,7 +27,7 @@ export const TableSelect = ({ value, onChange, tables }) => (
   <FormControl sx={{ minWidth: 140 }}>
     <InputLabel>Стол</InputLabel>
     <Select value={value || ""} onChange={onChange} label="Стол">
-      <MenuItem value="">Все</MenuItem>
+      <MenuItem value="all">Все</MenuItem>
       {tables?.map((table) => (
         <MenuItem key={table._id} value={table._id}>
           {table.number || table._id}
@@ -36,3 +36,4 @@ export const TableSelect = ({ value, onChange, tables }) => (
     </Select>
   </FormControl>
 );
+

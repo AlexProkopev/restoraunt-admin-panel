@@ -11,9 +11,7 @@ function TablesList({ dataList }) {
       <ListItem sx={{ maxWidth: '300px', mb: 1.5 }}>
         <TableCard data={dataList} onOpen={() => setOpen(true)} />
       </ListItem>
-
-      <TableModal open={open} onClose={() => setOpen(false)} table={dataList}
-      />
+      <TableModal open={open} onClose={() => setOpen(false)} table={dataList}/>
     </>
   );
 }
