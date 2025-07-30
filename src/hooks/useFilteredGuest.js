@@ -22,9 +22,19 @@ export default function useFilteredGuests(guests = []) {
       if (filter.visits === 'after5' && count <= 5) return false;
       if (filter.visits === 'firstTime' && count !== 1) return false;
 
-      if (filter.nameIncludes && !name.includes(filter.nameIncludes)) return false;
-      
-      if (filter.phoneIncludes && !phone.includes(filter.phoneIncludes)) return false;
+      if (
+        filter.nameIncludes &&
+        !name.includes(filter.nameIncludes.toLowerCase())
+      ) {
+        return false;
+      }
+
+      if (
+        filter.phoneIncludes &&
+        !phone.toString().includes(filter.phoneIncludes)
+      ) {
+        return false;
+      }
 
       if (filter.recentVisit) {
         const diff = (now - lastVisit) / (1000 * 60 * 60 * 24);
