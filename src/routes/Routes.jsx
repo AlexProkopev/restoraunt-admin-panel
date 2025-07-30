@@ -9,6 +9,7 @@ import Staffs from "../components/Staffs/Staffs";
 import Statistics from "../components/Statistics/Statistics";
 import Settings from "../components/Settings/Settings";
 import Reviews from "../components/Reviews/Reviews";
+import Guests from "../Page/Guests/Guests";
 
 export const LOGIN_PAGE = "/login";
 export const ORDERS_PAGE = "/orders";
@@ -37,7 +38,6 @@ export const ROUTES = [
       </PrivateRoute>
     ),
     children: [
-
       { index: true, element: <Orders /> },
       { path: "orders", element: <Orders /> },
       { path: "tables", element: <Tables /> },
@@ -46,6 +46,7 @@ export const ROUTES = [
       { path: "stats", element: <Statistics /> },
       { path: "reviews", element: <Reviews /> },
       { path: "settings", element: <Settings /> },
+      { path: "guests", element: <Guests /> },
     ],
   },
 ];

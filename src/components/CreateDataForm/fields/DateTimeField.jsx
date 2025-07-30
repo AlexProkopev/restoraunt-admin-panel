@@ -9,9 +9,7 @@ const DateTimeField = ({ value, onChange, error }) => (
       label="Дата и время"
       value={value ? new Date(value) : null}
       onChange={newValue => onChange('date', newValue)}
-      slotProps={{
-        textField: { error: !!error, helperText: error, fullWidth: true },
-      }}
+      slotProps={{textField: { error: !!error, helperText: error, fullWidth: true }}}
       disablePast
     />
   </LocalizationProvider>

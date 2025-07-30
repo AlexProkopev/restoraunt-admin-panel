@@ -3,6 +3,7 @@ import { LocationField, NumberField, SeatsField } from './field/AllField';
 import { container } from './CreateDataTableForm.styles';
 
 const CreateDataTableForm = ({ form, handleChange, errors }) => {
+  
   return (
     <Box sx={container}>
       <LocationField value={form.location} onChange={handleChange} error={errors?.location} />

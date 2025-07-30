@@ -27,4 +27,14 @@ export const schemaCreateTable = yup.object().shape({
   location: yup.string().required('Локация обязательна'),
 });
 
+export const schemaCreateGuest = yup.object().shape({
+  name: yup.string().required('Имя обязательно'),
+  phone: yup
+    .string()
+    .matches(/^\+?[0-9]{12}$/, 'Введите корректный номер телефона без +')
+    .required('Телефон обязателен'),
+
+
+});
+
 export default schema

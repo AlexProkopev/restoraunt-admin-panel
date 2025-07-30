@@ -1,4 +1,4 @@
-export const selectTables = store => store.tableStore.tables;
-export const selectTablesDetails = store => store.tableStore.tablesDetails;
-export const selectTablesIsLoading = store => store.tableStore.isLoading;
-export const selectTablesError = (state) => state.tableStore.isError;
+export const selectTables = store => store.tablesStore.tables;
+export const selectTablesDetails = store => store.tablesStore.tablesDetails;
+export const selectTablesIsLoading = store => store.tablesStore.isLoading;
+export const selectTablesError = (state) => state.tablesStore.isError;

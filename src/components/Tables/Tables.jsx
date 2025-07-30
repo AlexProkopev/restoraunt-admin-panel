@@ -22,9 +22,8 @@ const Tables = () => {
 
   return (
     <>
-      <CreateButton onCreate={onCreateTable} initialForm={initialStateForm} validationSchema={schemaCreateTable} FormComponent={CreateDataTableForm}
-      />
-      <Box display="flex" gap={2} mb={2}>
+      <CreateButton onCreate={onCreateTable} initialForm={initialStateForm} validationSchema={schemaCreateTable} FormComponent={CreateDataTableForm} />
+      <Box  display="flex" gap={2} mb={2} flexWrap="wrap">
         <FilterBySeats value={filters.seats} onChange={handleFilterChange} />
         <FilterByOccupancy value={filters.isOccupied} onChange={handleFilterChange} />
         <FilterByLocation value={filters.location} onChange={handleFilterChange} />
