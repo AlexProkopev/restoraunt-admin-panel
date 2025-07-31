@@ -1,5 +1,6 @@
 export const drawerWidthOpen = 240;
 export const drawerWidthClosed = 60;
+const drawerWidthClosedMobile = 30;
 
 export const sidebarStyles = {
   drawer: (open, theme) => ({
@@ -16,8 +17,12 @@ export const sidebarStyles = {
       overflowX: "hidden",
       backgroundColor: theme.palette.background.paper,
       color: theme.palette.text.primary,
+      [theme.breakpoints.down("sm")]: {
+        maxWidth: open ? drawerWidthOpen : drawerWidthClosedMobile,
+      },
     },
   }),
+
 
   logoContainer: (open, theme) => ({
     display: "flex",
