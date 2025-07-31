@@ -1,4 +1,4 @@
-import { Box, List, useMediaQuery } from '@mui/material';
+import { Box, List } from '@mui/material';
 import TablesList from '../TablesList/TablesList';
 import Loader from '../Loader/Loader';
 import CreateButton from '../CreateButton/CreateButton';

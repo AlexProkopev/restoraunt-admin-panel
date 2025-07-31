@@ -27,6 +27,15 @@ function useGuestsLogic() {
   }, [dispatch]);
 
   const handleCreateGuest = (guestData) => dispatch(addGuestThunk(guestData));
+
+  const nowIsPlace =(guest) => {
+    if (guest.nowIsPlace) {
+      return 'rgba(0, 200, 0, 0.5)'
+    }
+    const updatedGuest = { ...guest, nowIsPlace: true };
+    dispatch(updateGuestThunk({ id: guest._id, guestData: updatedGuest }));
+    setOpen(false);
+  }
   
 
   const handleDeleteGuest = async (guestId) => {
@@ -43,6 +52,14 @@ function useGuestsLogic() {
     setOpen(false);
   };
 
+   const sortedNowIsPlace = (data) => {
+    return data.sort((a, b) => {
+      if (a.nowIsPlace === b.nowIsPlace) return 0;
+      return a.nowIsPlace ? -1 : 1;
+    });
+  };
+
+
   return {
     handleDeleteGuest,
     handleCreateGuest,
@@ -51,7 +68,9 @@ function useGuestsLogic() {
     initialStateForm,
     open,
     selectedGuest,
-    handleUpdateGuest
+    handleUpdateGuest,
+    nowIsPlace,
+    sortedNowIsPlace
   };
 }
 

@@ -9,8 +9,9 @@ import FieldActions from './fields/FieldActions';
 
 function GuestItem({ data, onClick }) {
   const theme = useTheme();
+  const cardColor = data.nowIsPlace ? 'rgba(0, 200, 0, 0.5)' : theme.palette.background.paper;
   return (
-    <ListItem sx={listItemStyles}>
+    <ListItem sx={{...listItemStyles(theme), backgroundColor: cardColor}}>
       <Card sx={cardItemStyles(theme)}>
         <CardContent sx={cardContentStyles(theme)}>
           <FieldName name={data.name} />

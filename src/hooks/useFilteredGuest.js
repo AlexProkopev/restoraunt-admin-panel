@@ -6,6 +6,7 @@ export default function useFilteredGuests(guests = []) {
     nameIncludes: '',
     phoneIncludes: '',
     recentVisit: false,
+    nowIsPlace: false,
   });
 
   const filteredGuests = useMemo(() => {
@@ -40,6 +41,8 @@ export default function useFilteredGuests(guests = []) {
         const diff = (now - lastVisit) / (1000 * 60 * 60 * 24);
         if (diff > 30) return false;
       }
+
+      if (filter.nowIsPlace && !guest.nowIsPlace) return false;
 
       return true;
     });

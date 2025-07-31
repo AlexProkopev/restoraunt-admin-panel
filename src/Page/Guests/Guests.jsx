@@ -1,4 +1,3 @@
-import { Container } from '@mui/material';
 import GuestsList from '../../components/GuestsList/GuestsList';
 import CreateButton from '../../components/CreateButton/CreateButton';
 import { schemaCreateGuest } from '../../validationForm/createForm';

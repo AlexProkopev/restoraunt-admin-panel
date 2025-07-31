@@ -11,7 +11,7 @@ function GuestFilterToggle({ filter, setFilter }) {
    const btnContent = showFilters ? 'Скрыть фильтры' : 'Показать фильтры';
 
   useEffect(() => {
-    if (!isSmallScreen) setShowFilters(true);
+    if (!isSmallScreen) setShowFilters(false);
   }, [isSmallScreen]);
 
   return (
