@@ -8,7 +8,7 @@ function TablesList({ dataList }) {
 
   return (
     <>
-      <ListItem sx={{ maxWidth: '300px', mb: 1.5 }}>
+      <ListItem sx={{ display: 'flex', maxWidth: '220px', mb: 1.5, flexDirection: 'column', alignItems: 'center' }}>
         <TableCard data={dataList} onOpen={() => setOpen(true)} />
       </ListItem>
       <TableModal open={open} onClose={() => setOpen(false)} table={dataList}/>

@@ -1,5 +1,4 @@
-import { FormControl, InputLabel, Select, MenuItem, FormControlLabel, Checkbox } from "@mui/material";
-import { selectStyles } from "./Field.styles";
+import { FormControlLabel, Checkbox } from "@mui/material";
 
 export const IsPlaceSelect = ({ value, onChange }) => (
  <FormControlLabel

@@ -17,6 +17,11 @@ const Tables = () => {
   const isLoading = useSelector(selectTablesIsLoading)
   const { dataTables, initialStateForm, onCreateTable } = useTables();
   const { filteredTables, filters, handleFilterChange } = useTableFilters(dataTables);
+  const sortedIsOccupied = filteredTables?.sort((a, b) => {
+    if (a.isOccupied && !b.isOccupied) return -1;
+    if (!a.isOccupied && b.isOccupied) return 1;
+    return 0;
+  });
 
   if (isLoading) return <Loader />;
 
@@ -28,7 +33,7 @@ const Tables = () => {
         <FilterByOccupancy value={filters.isOccupied} onChange={handleFilterChange} />
         <FilterByLocation value={filters.location} onChange={handleFilterChange} />
       </Box>
-      <List sx={stylesTable}>{filteredTables?.map((data) => <TablesList key={data._id} dataList={data} />)}</List>
+      <List sx={stylesTable}>{sortedIsOccupied?.map((data) => <TablesList key={data._id} dataList={data} />)}</List>
     </>
   );
 };
