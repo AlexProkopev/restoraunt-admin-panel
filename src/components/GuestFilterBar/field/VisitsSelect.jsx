@@ -1,7 +1,8 @@
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { selectStyles } from "./Field.styles";
 
 export const VisitsSelect = ({ value, onChange }) => (
-  <FormControl sx={{ minWidth: 120 }}>
+  <FormControl sx={selectStyles}>
     <InputLabel>Визиты</InputLabel>
     <Select value={value} onChange={onChange} label="Визиты">
         <MenuItem value="all">Все</MenuItem>

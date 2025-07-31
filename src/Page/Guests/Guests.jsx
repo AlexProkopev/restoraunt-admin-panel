@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Container } from '@mui/material';
 import GuestsList from '../../components/GuestsList/GuestsList';
 import CreateButton from '../../components/CreateButton/CreateButton';
 import { schemaCreateGuest } from '../../validationForm/createForm';
@@ -9,10 +9,10 @@ function Guests() {
   const { handleCreateGuest,initialStateForm } = useGuestsLogic();
 
   return (
-    <Box>
+    <>
       <CreateButton onCreate={handleCreateGuest} initialForm={initialStateForm} validationSchema={schemaCreateGuest} FormComponent={CreateGuestForm} />
       <GuestsList />
-    </Box>
+    </>
   );
 }
 

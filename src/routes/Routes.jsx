@@ -1,4 +1,4 @@
-import Orders from "../components/Orders/Orders";
+import Orders from "../Page/Orders/Orders";
 import Login from "../Page/Login/Login";
 import Layout from "../components/Layout/Layout";
 import PrivateRoute from "./PrivateRoute";

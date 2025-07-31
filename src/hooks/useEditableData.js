@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { deleteBookingThunk, fetchOrders, updateOrderThunk } from "../redux/orders/services";
 import { Notify } from 'notiflix';
 import { deleteTablesThunk, fetchTables } from "../redux/tables/services";
+import { updateGuestThunk } from "../redux/guests/services";
 
 const useEditableData = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -16,9 +17,15 @@ const useEditableData = () => {
     setOpenModal(true);
   };
 
-  const handleChange = (key, value) => {
-    setSelectedItem((prev) => ({ ...prev, [key]: value }));
-  };
+ const handleChange = (eOrKey, value) => {
+  if (typeof eOrKey === 'object' && eOrKey.target) {
+    const { name, value } = eOrKey.target;
+    setSelectedItem((prev) => ({ ...prev, [name]: value }));
+  } else {
+    setSelectedItem((prev) => ({ ...prev, [eOrKey]: value }));
+  }
+};
+
 
   const handleSubmit = () => {
     const updateData = {};
@@ -29,6 +36,20 @@ const useEditableData = () => {
     });
     const id = selectedItem._id || selectedItem.id;
     dispatch(updateOrderThunk({ id, updateData }));
+    setOpenModal(false);
+
+    return { id, updateData };
+  };
+
+  const handleSubmitGuest = () => {
+    const updateData = {};
+    Object.keys(selectedItem).forEach((key) => {
+      if (selectedItem[key] !== originalItem[key]) {
+        updateData[key] = selectedItem[key];
+      }
+    });
+    const id = selectedItem._id || selectedItem.id;
+    dispatch(updateGuestThunk({ id, updateData }));
     setOpenModal(false);
 
     return { id, updateData };
@@ -80,7 +101,8 @@ const useEditableData = () => {
     handleDelete,
     handleStatusChange,
     handleDateChange,
-    handleDeleteTable
+    handleDeleteTable,
+    handleSubmitGuest
   };
 };
 

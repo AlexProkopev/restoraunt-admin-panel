@@ -12,6 +12,7 @@ export const useTableFilters = (tables) => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
+  
   const filteredTables = useMemo(() => {
     return tables?.filter((table) => {
       const matchSeats = filters.seats ? table.seats === Number(filters.seats) : true;

@@ -1,40 +1,33 @@
 import { useDispatch } from 'react-redux';
-import { addGuestThunk, deleteGuestThunk, fetchGuests } from '../redux/guests/services';
+import { addGuestThunk, deleteGuestThunk, fetchGuests, updateGuestThunk, } from '../redux/guests/services';
 import Notify from 'notifyjs';
-import { fetchTables } from '../redux/tables/services';
 import { useEffect, useState } from 'react';
+import useEditableData from './useEditableData';
 
 function useGuestsLogic() {
   const dispatch = useDispatch();
-   const [open, setOpen] = useState(false);
-    const [selectedGuest, setSelectedGuest] = useState(null);
-  const initialStateForm = {
-    name: '',
-    phone: '',
+  const [open, setOpen] = useState(false);
+  const [selectedGuest, setSelectedGuest] = useState(null);
+  const initialStateForm = { name: '', phone: '' };
+  const { handleEdit} = useEditableData();
+
+  const handleOpenModal = (guest) => {
+    setSelectedGuest(guest);
+    setOpen(true);
+     handleEdit(guest);
   };
 
+  const handleCloseModal = () => {
+    setOpen(false);
+    setSelectedGuest(null);
+  };
 
-   const handleOpenModal = (guest) => {
-      setSelectedGuest(guest);
-      setOpen(true);
-    };
-  
-    const handleCloseModal = () => {
-      setOpen(false);
-      setSelectedGuest(null);
-    };
-  
-   
-    useEffect(() => {
-      dispatch(fetchGuests());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchGuests());
+  }, [dispatch]);
 
-
+  const handleCreateGuest = (guestData) => dispatch(addGuestThunk(guestData));
   
-    const handleCreateGuest = (guestData) => {
-      dispatch(addGuestThunk(guestData));
-      dispatch(fetchTables());
-    };
 
   const handleDeleteGuest = async (guestId) => {
     try {
@@ -45,7 +38,21 @@ function useGuestsLogic() {
     }
   };
 
-  return { handleDeleteGuest, handleCreateGuest, handleOpenModal, handleCloseModal, initialStateForm,open,selectedGuest };
+  const handleUpdateGuest = (guestData,id) => {
+    dispatch(updateGuestThunk({ id, guestData }));
+    setOpen(false);
+  };
+
+  return {
+    handleDeleteGuest,
+    handleCreateGuest,
+    handleOpenModal,
+    handleCloseModal,
+    initialStateForm,
+    open,
+    selectedGuest,
+    handleUpdateGuest
+  };
 }
 
 export default useGuestsLogic;

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import CreateButton from '../CreateButton/CreateButton';
-import CreateDataForm from '../CreateDataForm/CreateDataForm';
-import OrdersList from '../OrdersList/OrdersList';
+import CreateButton from '../../components/CreateButton/CreateButton';
+import CreateDataForm from '../../components/CreateDataForm/CreateDataForm';
+import OrdersList from '../../components/OrdersList/OrdersList';
 import { useOrdersLogic } from '../../hooks/useOrdersLogic';
 
 function Orders() {
