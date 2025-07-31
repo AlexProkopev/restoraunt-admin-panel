@@ -53,7 +53,7 @@ function useGuestsLogic() {
   };
 
    const sortedNowIsPlace = (data) => {
-    return data.sort((a, b) => {
+    return data?.sort((a, b) => {
       if (a.nowIsPlace === b.nowIsPlace) return 0;
       return a.nowIsPlace ? -1 : 1;
     });
