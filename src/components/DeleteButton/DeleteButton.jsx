@@ -1,10 +1,11 @@
 import { Tooltip } from '@mui/material';
 import styles from './DeleteButton.module.css';
 
-function DeleteButton({ onDelete, deletedObjectId }) {
+function DeleteButton({ onDelete, deleteFetch, fetchData, objectId }) {
+  
   return (
     <Tooltip title="Удалить элемент" arrow>
-      <button className={styles.tooltip} onClick={() => onDelete(deletedObjectId)} >
+      <button className={styles.tooltip} onClick={() => onDelete(deleteFetch,fetchData,objectId)} >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" height="25" width="25" >
           <path
             fill="#6361D9"

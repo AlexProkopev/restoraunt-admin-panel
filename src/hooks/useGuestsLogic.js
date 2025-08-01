@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addGuestThunk, deleteGuestThunk, fetchGuests, updateGuestThunk, } from '../redux/guests/services';
-import Notify from 'notifyjs';
+import { addGuestThunk,  fetchGuests, updateGuestThunk, } from '../redux/guests/services';
 import { useEffect, useState } from 'react';
 import useEditableData from './useEditableData';
 
@@ -38,15 +37,6 @@ function useGuestsLogic() {
   }
   
 
-  const handleDeleteGuest = async (guestId) => {
-    try {
-      await dispatch(deleteGuestThunk(guestId));
-      dispatch(fetchGuests());
-    } catch (error) {
-      Notify.failure(error.message);
-    }
-  };
-
   const handleUpdateGuest = (guestData,id) => {
     dispatch(updateGuestThunk({ id, guestData }));
     setOpen(false);
@@ -61,7 +51,6 @@ function useGuestsLogic() {
 
 
   return {
-    handleDeleteGuest,
     handleCreateGuest,
     handleOpenModal,
     handleCloseModal,

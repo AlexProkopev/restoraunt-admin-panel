@@ -72,7 +72,7 @@ const darkTheme = createTheme({
 export { lightTheme, darkTheme };
 
 
-export const theemeFromLocal = () => {
+export const themeFromLocal = () => {
     const stored = localStorage.getItem('theme');
     return stored === 'dark';}
 

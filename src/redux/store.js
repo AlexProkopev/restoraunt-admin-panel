@@ -14,6 +14,7 @@ import { authentifitacionReduces } from "./authentification/authentication.reduc
 import { ordersReducer } from "./orders/orders.reducer";
 import { tableReducer } from "./tables/tables.reducer";
 import { guestsReducer } from "./guests/guests.reducer";
+import { ingredientsReducer } from "./ingredinets/ingredinets.reducer";
 
 const userConfig = {
   key: "auth",
@@ -27,6 +28,7 @@ export const store = configureStore({
     ordersStore: ordersReducer,
     tablesStore: tableReducer,
     guestsStore: guestsReducer,
+    ingredientsStore: ingredientsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

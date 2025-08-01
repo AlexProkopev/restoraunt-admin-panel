@@ -37,4 +37,24 @@ export const schemaCreateGuest = yup.object().shape({
 
 });
 
+export const schemaCreateIngredient = yup.object().shape({
+  name: yup.string().required('Имя обязательно'),
+  stock: yup
+    .number()
+    .typeError('Введите число')
+    .positive('Количество должно быть больше 0')
+    .integer('Целое число')
+    .required('Укажите количество'),
+  costPerUnit: yup
+    .number()
+    .typeError('Введите число')
+    .positive('Цена должна быть больше 0')
+    .required('Укажите цену за единицу'),
+  category: yup.string().required('Категория обязательна'),
+});
+
+
+
+
+
 export default schema
