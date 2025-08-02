@@ -14,8 +14,6 @@ import Menu from "../Page/Menu/Menu";
 import Ingredients from "../Page/Ingredients/Ingredients";
 import Dishes from "../Page/Dishes/Dishes";
 import CreateDishPage from "../Page/CreateDishPage/CreateDishPage";
-import { Navigate } from "react-router-dom";
-
 
 export const LOGIN_PAGE = "/login";
 export const ORDERS_PAGE = "/orders";

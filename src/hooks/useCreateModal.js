@@ -1,10 +1,16 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchIngredients } from '../redux/ingredinets/services';
 
-export const useCreateModalForm = ({ initialForm, validationSchema, onCreate }) => {
+export const useCreateModalForm = ({
+  initialForm,
+  validationSchema,
+  onCreate,
+}) => {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
-
+const dispatch = useDispatch()
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -16,7 +22,6 @@ export const useCreateModalForm = ({ initialForm, validationSchema, onCreate }) 
     const updatedForm = { ...form, [field]: value };
     setForm(updatedForm);
 
-    
 
     if (validationSchema) {
       validationSchema
@@ -28,15 +33,18 @@ export const useCreateModalForm = ({ initialForm, validationSchema, onCreate }) 
           setErrors((prev) => ({ ...prev, [field]: err.message }));
         });
     }
+
+    
   };
 
   const handleSubmit = async () => {
-    
     try {
       if (validationSchema) {
         await validationSchema.validate(form, { abortEarly: false });
       }
       await onCreate(form);
+      
+      await dispatch(fetchIngredients())
       handleClose();
     } catch (err) {
       if (err.name === 'ValidationError') {

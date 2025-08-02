@@ -1,56 +1,40 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box } from '@mui/material';
+import NameField from './fields/NameField';
+import CategoryField from './fields/CategoryField';
+import AvailabilityField from './fields/AvailabilityField';
+import MarkupField from './fields/MarkupField';
 
 
 function CreateDishForm({ form, handleChange, errors }) {
-    console.log(errors);
   return (
-   <Box>
-    <TextField
-  label="Название"
-  value={form.name}
-  onChange={e => handleChange('name', e.target.value)}
-  error={!!errors.name}
-  helperText={errors.name}
-  fullWidth
-/>
+    <Box>
+      <NameField
+        value={form.name}
+        onChange={value => handleChange('name', value)}
+        error={!!errors.name}
+        helperText={errors.name}
+      />
 
-<FormControl fullWidth error={!!errors.category}>
-  <InputLabel>Категория</InputLabel>
-  <Select
-    value={form.category}
-    onChange={(e) => handleChange('category', e.target.value)}
-    label="Категория"
-  >
-    <MenuItem value="Салат">Салат</MenuItem>
-    <MenuItem value="Горячее блюдо">Горячее блюдо</MenuItem>
-    <MenuItem value="Десерт">Десерт</MenuItem>
-  </Select>
-</FormControl>
+      <CategoryField
+        value={form.category}
+        onChange={value => handleChange('category', value)}
+        error={!!errors.category}
+      />
 
-<FormControl fullWidth error={!!errors.isAvailable}>
-  <InputLabel>Включать в меню</InputLabel>
-  <Select
-    value={form.isAvailable}
-    onChange={(e) => handleChange('isAvailable', e.target.value)}
-    label="Состав меню"
-  >
-    <MenuItem value={true}>Да</MenuItem>
-    <MenuItem value={false}>Нет</MenuItem>
-  </Select>
-</FormControl>
+      <AvailabilityField
+        value={form.isAvailable}
+        onChange={value => handleChange('isAvailable', value)}
+        error={!!errors.isAvailable}
+      />
 
-<TextField
-  label="Процент наценки"
-  value={form.percent}
-  onChange={e => handleChange('percent', e.target.value)}
-  error={!!errors.percent}
-  helperText={errors.percent}
-  fullWidth
-/>
-
-   </Box>
-    );
-  
+      <MarkupField
+        value={form.percent}
+        onChange={value => handleChange('percent', value)}
+        error={!!errors.percent}
+        helperText={errors.percent}
+      />
+    </Box>
+  );
 }
 
-export default CreateDishForm
+export default CreateDishForm;

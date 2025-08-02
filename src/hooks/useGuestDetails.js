@@ -7,15 +7,11 @@ function useGuestDetails(guest) {
   const { checkRole } = useCheckRole();
   const role = checkRole();
 
-  
-
   function makeDiscount(countVisit) {
     if (countVisit > 100) return '7%';
     if (countVisit > 50) return '5%';
     return '0%';
   }
-
-  
 
   const getStatusGuest = () => {
     if (countVisit > 10) return 'VIP';

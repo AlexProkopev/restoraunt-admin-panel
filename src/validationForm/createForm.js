@@ -54,12 +54,6 @@ export const schemaCreateIngredient = yup.object().shape({
   unit: yup.string().required('Еденица измерения обязательна'),
 });
 
-// const ingredientSchema = yup.object().shape({
-//  _id: yup.string().required('_id обязателен'),
-//   quantity: yup.string().required('Еденица измерения обязательна'),
-// });
-
-
 
 export const schemaCreateDish = yup.object().shape({
   name: yup.string().required('Название обязательно'),

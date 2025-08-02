@@ -4,7 +4,6 @@ import { Notify } from 'notiflix';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  fetchIngredients,
   updateIngredientThunk,
 } from '../../redux/ingredinets/services';
 import { inputButtonStyle, toggleButtonStyle } from './EditStockIngredients.style';
@@ -33,7 +32,6 @@ function EditStockIngredients({ children, id }) {
 
     try {
       await dispatch(updateIngredientThunk(resultDataUpgrade));
-      dispatch(fetchIngredients());
       setState({
           stock: '',
       })

@@ -1,4 +1,3 @@
-import React from 'react'
 
 function useService() {
     const countTotal = (counterArray) => {

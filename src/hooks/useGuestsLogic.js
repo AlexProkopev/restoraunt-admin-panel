@@ -1,25 +1,13 @@
 import { useDispatch } from 'react-redux';
-import { addGuestThunk,  fetchGuests, updateGuestThunk, } from '../redux/guests/services';
-import { useEffect, useState } from 'react';
-import useEditableData from './useEditableData';
+import {
+  addGuestThunk,
+  fetchGuests,
+} from '../redux/guests/services';
+import { useEffect } from 'react';
 
 function useGuestsLogic() {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
-  const [selectedGuest, setSelectedGuest] = useState(null);
   const initialStateForm = { name: '', phone: '' };
-  const { handleEdit} = useEditableData();
-
-  const handleOpenModal = (guest) => {
-    setSelectedGuest(guest);
-    setOpen(true);
-     handleEdit(guest);
-  };
-
-  const handleCloseModal = () => {
-    setOpen(false);
-    setSelectedGuest(null);
-  };
 
   useEffect(() => {
     dispatch(fetchGuests());
@@ -27,39 +15,17 @@ function useGuestsLogic() {
 
   const handleCreateGuest = (guestData) => dispatch(addGuestThunk(guestData));
 
-  const nowIsPlace =(guest) => {
-    if (guest.nowIsPlace) {
-      return 'rgba(0, 200, 0, 0.5)'
-    }
-    const updatedGuest = { ...guest, nowIsPlace: true };
-    dispatch(updateGuestThunk({ id: guest._id, guestData: updatedGuest }));
-    setOpen(false);
-  }
-  
-
-  const handleUpdateGuest = (guestData,id) => {
-    dispatch(updateGuestThunk({ id, guestData }));
-    setOpen(false);
-  };
-
-   const sortedNowIsPlace = (data) => {
+  const sortedNowIsPlace = (data) => {
     return data?.sort((a, b) => {
       if (a.nowIsPlace === b.nowIsPlace) return 0;
       return a.nowIsPlace ? -1 : 1;
     });
   };
 
-
   return {
     handleCreateGuest,
-    handleOpenModal,
-    handleCloseModal,
     initialStateForm,
-    open,
-    selectedGuest,
-    handleUpdateGuest,
-    nowIsPlace,
-    sortedNowIsPlace
+    sortedNowIsPlace,
   };
 }
 
