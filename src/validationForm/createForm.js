@@ -80,7 +80,7 @@ export const schemaCreateDish = yup.object().shape({
           .number()
           .typeError('Количество должно быть числом')
           .required('Укажите количество')
-          .moreThan(0, 'Количество должно быть больше 0'),
+          
       })
     )
     .min(1, 'Добавьте хотя бы один ингредиент')
