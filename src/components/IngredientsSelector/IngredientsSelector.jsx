@@ -6,6 +6,7 @@ import {
   Checkbox,
   FormControlLabel,
   Typography,
+  Input,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector } from 'react-redux';
@@ -81,9 +82,9 @@ const handleQuantityChange = (id, quantity) => {
                     }
                   />
                   {current && (
-                    <input
+                    <Input
                       type="number"
-                      min="0"
+                       inputProps={{ min: 0 }}
                       placeholder="Граммы"
                       value={current.quantity}
                       onChange={(e) =>
