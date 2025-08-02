@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectIngredients } from '../../redux/ingredinets/ingredinets.selectors';
 import IngredientsList from '../../components/IngredientsList/IngredientsList';
@@ -8,21 +8,22 @@ import CreateIngredientForm from '../../components/CreateIngredientForm/CreateIn
 import useFilteredIngredients from '../../hooks/useFilteredIngredients';
 import FilterIngredients from '../../components/FilterIngredients/FilterIngredients';
 import useIngredientsLogic from '../../hooks/useIngredientsLogic';
+import usePaginatedList from '../../hooks/usePaginatedList';
+import IngredientTitle from '../../components/IngredientTitle/IngredientTitle';
+import ButtonIsMore from '../../components/ButtonIsMore/ButtonIsMore';
 
 function Ingredients() {
   const ingredientsData = useSelector(selectIngredients);
   const { filteredIngredients, filter, setFilter } = useFilteredIngredients(ingredientsData || []);
-  const {initialStateForm, resultPrice, handleCreateIngredient} = useIngredientsLogic()
-
+  const {initialStateForm,  handleCreateIngredient} = useIngredientsLogic()
+  const { setPage,visibleData,hasMore} = usePaginatedList(filteredIngredients,'stock')
   return (
     <Box>
-      <Box>
-        <Typography variant="h4" gutterBottom>Ингредиенты</Typography>
-        <Typography variant="p" gutterBottom> На общую сумму: {resultPrice} UAH </Typography>
-      </Box>
-      <FilterIngredients filter={filter} setFilter={setFilter}/>
-      <CreateButton onCreate={handleCreateIngredient} initialForm={initialStateForm} validationSchema={schemaCreateIngredient} FormComponent={CreateIngredientForm} />
-      <IngredientsList dataIngredients={filteredIngredients} />
+       <IngredientTitle/>
+       <FilterIngredients filter={filter} setFilter={setFilter}/>
+       <CreateButton onCreate={handleCreateIngredient} initialForm={initialStateForm} validationSchema={schemaCreateIngredient} FormComponent={CreateIngredientForm} />
+       <IngredientsList dataIngredients={visibleData} />
+       <ButtonIsMore setPage={setPage} hasMore={hasMore}/>
     </Box>
   );
 }

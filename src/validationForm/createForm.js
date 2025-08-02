@@ -38,7 +38,7 @@ export const schemaCreateGuest = yup.object().shape({
 });
 
 export const schemaCreateIngredient = yup.object().shape({
-  name: yup.string().required('Имя обязательно'),
+  name: yup.string().required('Название обязательно'),
   stock: yup
     .number()
     .typeError('Введите число')
@@ -51,7 +51,43 @@ export const schemaCreateIngredient = yup.object().shape({
     .positive('Цена должна быть больше 0')
     .required('Укажите цену за единицу'),
   category: yup.string().required('Категория обязательна'),
+  unit: yup.string().required('Еденица измерения обязательна'),
 });
+
+// const ingredientSchema = yup.object().shape({
+//  _id: yup.string().required('_id обязателен'),
+//   quantity: yup.string().required('Еденица измерения обязательна'),
+// });
+
+
+
+export const schemaCreateDish = yup.object().shape({
+  name: yup.string().required('Название обязательно'),
+  category: yup.string().required('Категория обязательна'),
+  percent: yup
+    .number()
+    .typeError('Процент должен быть числом')
+    .required('Укажите процент наценки')
+    .min(0, 'Не может быть меньше 0')
+    .max(1000, 'Не может быть больше 1000'),
+  isAvailable: yup.boolean().required('Укажите доступность'),
+  ingredients: yup
+    .array()
+    .of(
+      yup.object().shape({
+        ingredient: yup.string().required('Ингредиент обязателен'),
+        quantity: yup
+          .number()
+          .typeError('Количество должно быть числом')
+          .required('Укажите количество')
+          .moreThan(0, 'Количество должно быть больше 0'),
+      })
+    )
+    .min(1, 'Добавьте хотя бы один ингредиент')
+    .required('Ингредиенты обязательны'),
+});
+
+
 
 
 

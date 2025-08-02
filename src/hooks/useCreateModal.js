@@ -31,7 +31,7 @@ export const useCreateModalForm = ({ initialForm, validationSchema, onCreate }) 
   };
 
   const handleSubmit = async () => {
-    console.log( form);
+    
     try {
       if (validationSchema) {
         await validationSchema.validate(form, { abortEarly: false });

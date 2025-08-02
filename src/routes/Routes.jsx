@@ -13,6 +13,8 @@ import Guests from "../Page/Guests/Guests";
 import Menu from "../Page/Menu/Menu";
 import Ingredients from "../Page/Ingredients/Ingredients";
 import Dishes from "../Page/Dishes/Dishes";
+import CreateDishPage from "../Page/CreateDishPage/CreateDishPage";
+import { Navigate } from "react-router-dom";
 
 
 export const LOGIN_PAGE = "/login";
@@ -45,19 +47,23 @@ export const ROUTES = [
       { index: true, element: <Orders /> },
       { path: "orders", element: <Orders /> },
       { path: "tables", element: <Tables /> },
+      { path: "create-dish", element: <CreateDishPage /> },
       {
-        path: "menu",
-        element: <Menu />,
-        children: [
-          { path: "ingredients", element: <Ingredients /> },
-          { path: "dishes", element: <Dishes /> },
-        ],
-      },
+  path: "menu",
+  element: <Menu />,
+  children: [
+    { path: "ingredients", element: <Ingredients /> },
+    {path: "dishes",element: <Dishes />,},
+    {path: "create",element: <CreateDishPage/>,}
+  ],
+},
+
       { path: "staff", element: <Staffs /> },
       { path: "stats", element: <Statistics /> },
       { path: "reviews", element: <Reviews /> },
       { path: "settings", element: <Settings /> },
       { path: "guests", element: <Guests /> },
+      
     ],
   },
 ];

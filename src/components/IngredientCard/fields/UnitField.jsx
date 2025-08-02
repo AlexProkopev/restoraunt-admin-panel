@@ -11,7 +11,7 @@ function UnitField({ ingredient, theme }) {
         <ScaleIcon  sx={{ color: 'green' }}/>
       </ListItemIcon>
       <Typography variant="body2" color="text.secondary">
-        На сумму {ingredient.stock * ingredient.costPerUnit} UAH
+        На сумму {(ingredient.stock * ingredient.costPerUnit).toFixed(2)} UAH
       </Typography>
     </Box>
   );

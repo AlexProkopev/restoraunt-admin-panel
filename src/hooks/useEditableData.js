@@ -4,6 +4,7 @@ import { deleteBookingThunk, fetchOrders, updateOrderThunk } from "../redux/orde
 import { Notify } from 'notiflix';
 import { deleteTablesThunk, fetchTables } from "../redux/tables/services";
 import { updateGuestThunk } from "../redux/guests/services";
+import { updateIngredientThunk } from "../redux/ingredinets/services";
 
 const useEditableData = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -55,6 +56,20 @@ const useEditableData = () => {
     return { id, updateData };
   };
 
+  const handleSubmitIngredient = () => {
+    const updateData = {mode: 'set'};
+    Object.keys(selectedItem).forEach((key) => {
+      if (selectedItem[key] !== originalItem[key]) {
+        updateData[key] = selectedItem[key];
+      }
+    });
+    const id = selectedItem._id || selectedItem.id;
+    dispatch(updateIngredientThunk({ id, updateData }));
+    setOpenModal(false);
+   
+    return { id, updateData };
+  };
+
   const handleDelete = async (order) => {
       try {
         await dispatch(deleteBookingThunk(order._id));
@@ -102,7 +117,8 @@ const useEditableData = () => {
     handleStatusChange,
     handleDateChange,
     handleDeleteTable,
-    handleSubmitGuest
+    handleSubmitGuest,
+    handleSubmitIngredient
   };
 };
 

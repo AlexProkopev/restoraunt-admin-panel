@@ -9,15 +9,18 @@ function MenuNavigation() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const currentTab = location.pathname.includes("ingredients")
-    ? "/menu/ingredients"
-    : location.pathname.includes("dishes")
-    ? "/menu/dishes"
-    : "/menu";
+  ? "/menu/ingredients"
+  : location.pathname.includes("dishes")
+  ? "/menu/dishes"
+  : location.pathname.includes("create")
+  ? "/menu/create"
+  : "/menu";
   return (
     <>
      <Tabs value={currentTab} variant={isMobile ? "scrollable" : "standard"} scrollButtons="auto" centered={!isMobile} textColor="primary" indicatorColor="primary" sx={navItemMenu} >
         <Tab label="Продукты" value="/menu/ingredients" component={NavLink} to="/menu/ingredients" />
         <Tab label="Блюда" value="/menu/dishes" component={NavLink} to="/menu/dishes" />
+          <Tab label="Создать блюдо" value="/menu/create" component={NavLink} to="/menu/create" />
         <Tab label="Меню" value="/menu" component={NavLink} to="/menu" />
       </Tabs>
     </>

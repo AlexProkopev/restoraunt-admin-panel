@@ -5,7 +5,6 @@ export const listItem = () => ({
 
 export const card = (isMobile, isTablet, theme) => ({
   width: 280,
-  minHeight: '300px',
   borderRadius: 2,
   padding: isMobile ? theme.spacing(1.5) : theme.spacing(2),
   display: 'flex',
@@ -31,6 +30,5 @@ export const fieldIcon = (theme) => ({
   alignItems: 'center',
   color: theme.palette.secondary.main,
   minWidth: 'auto',
-
   mr: 1,
 });

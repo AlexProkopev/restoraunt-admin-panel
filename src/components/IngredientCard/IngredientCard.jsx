@@ -10,7 +10,7 @@ import { deleteIngredientThunk, fetchIngredients } from '../../redux/ingredinets
 import useHandller from '../../hooks/useHandller';
 
 
-function IngredientCard({ ingredient }) {
+function IngredientCard({ ingredient, onClick }) {
   const {handleDelete} = useHandller();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -21,10 +21,10 @@ function IngredientCard({ ingredient }) {
     <ListItem disableGutters sx={listItem(isMobile)}>
       <Card variant="outlined" sx={card(isMobile, isTablet, theme)}>
         <CardContent >
-          <NameField name={ingredient.name} isMobile={isMobile} theme={theme} />
+          <NameField  onClick={onClick} name={ingredient.name} isMobile={isMobile} theme={theme} />
           <CostField costPerUnit={ingredient.costPerUnit} unit={ingredient.unit} theme={theme} />
           <UnitField ingredient={ingredient} theme={theme} />
-          <StockField stock={ingredient.stock} unit={ingredient.unit} theme={theme} />
+          <StockField stock={ingredient.stock} unit={ingredient.unit} theme={theme} id={ingredient._id}/>
         </CardContent>
        <Box margin={'0 auto'}> <DeleteButton onDelete={handleDelete}deleteFetch={deleteIngredientThunk} fetchData={fetchIngredients} objectId={ingredient._id}  /></Box>
       </Card>

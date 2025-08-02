@@ -6,7 +6,7 @@ function CostField({ costPerUnit, unit, theme }) {
   return (
     <Box sx={fieldBox}>
       <ListItemIcon sx={{ ...fieldIcon(theme), color: 'green' }}> <MonetizationOnIcon/></ListItemIcon>
-      <Typography variant="body2" color="text.secondary">{`Цена за ${unit}: ${costPerUnit.toFixed(2)} UAH`} </Typography>
+      <Typography variant="body2" color="text.secondary">{`Цена за ${unit}: ${costPerUnit?.toFixed(2)} UAH`} </Typography>
     </Box>
   );
 }

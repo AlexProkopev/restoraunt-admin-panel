@@ -13,6 +13,7 @@ function useIngredientsLogic() {
     stock: '',
     costPerUnit: '',
     category: '',
+    unit:''
   };
 
    const handleCreateIngredient = (ingredientData) => dispatch(addIngredientThunk(ingredientData));

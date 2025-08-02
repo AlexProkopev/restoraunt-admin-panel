@@ -41,6 +41,7 @@ export const addIngredientThunk = createAsyncThunk(
 export const updateIngredientThunk = createAsyncThunk(
   'ingredients/updateIngredient',
   async ({ id, updateData }, { rejectWithValue }) => {
+    console.log(id, updateData);
     try {
       const response = await instance.patch(`/api/ingredients/${id}`, updateData);
       return response.data;
