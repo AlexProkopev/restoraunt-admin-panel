@@ -129,21 +129,21 @@ function DishItems({ dishItem }) {
                 Ингредиенты:
               </Typography>
               <List dense>
-                {ingredients.map((el) => (
+                {ingredients?.map((el) => (
                   <ListItem
                     key={el._id}
                     sx={{ display: 'flex', flexDirection: 'column', px: 0 }}
                   >
                     <Typography variant="body2">
-                      {el.ingredient.name}
+                      {el.ingredient?.name}
                     </Typography>
                     <Typography
                       variant="caption"
                       color="text.secondary"
                       sx={{ fontSize: 11 }}
                     >
-                      {el.quantity} {el.ingredient.unit} —{' '}
-                      {(el.ingredient.costPerUnit * el.quantity).toFixed(2)} UAH
+                      {el?.quantity} {el.ingredient?.unit} -{' '}
+                      {(el.ingredient?.costPerUnit * el?.quantity).toFixed(2)} UAH
                     </Typography>
                   </ListItem>
                 ))}
