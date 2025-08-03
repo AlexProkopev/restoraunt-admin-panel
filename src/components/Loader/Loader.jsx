@@ -6,16 +6,16 @@ function Loader() {
   return (
     <Box
       sx={{
+        height: 50,
+        width: 50,
         position: 'absolute',
-        top: 40,
+        top: '50%',
         left: '50%',
-        transform: 'translateX(-50%)',
+        transform: 'translate(-50%, -50%)',
       }}
     >
       <ThreeCircles
         visible={true}
-        height="100"
-        width="100"
         color="#ffffff"
         ariaLabel="three-circles-loading"
         wrapperStyle={{}}

@@ -64,6 +64,7 @@ const useEditableData = () => {
       }
     });
     const id = selectedItem._id || selectedItem.id;
+    console.log('Updated ingredient data:', updateData);
     dispatch(updateIngredientThunk({ id, updateData }));
     setOpenModal(false);
    
