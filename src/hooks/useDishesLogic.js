@@ -10,18 +10,46 @@ function useDishesLogic() {
     percent: 0,
     isAvailable: true,
     ingredients: [],
+    photo: null
   };
   const dispatch = useDispatch();
 
+  // const onCreateDish = async (formData) => {
+  //   try {
+  //     await dispatch(addDishThunk(formData));
+  //      Notify.success(`Блюдо "${formData.name}" успешно создано!`);
+  //   } catch (error) {
+  //     Notify.failure(`Ошибка при создании блюда "${formData.name}":`, error);
+  //   }
+  // };
+
   const onCreateDish = async (formData) => {
     try {
-      await dispatch(addDishThunk(formData));
-       Notify.success(`Блюдо "${formData.name}" успешно создано!`);
+      let payload;
+
+      if (formData.photo instanceof File) {
+        // Если есть фото, собираем FormData
+        const fd = new FormData();
+        fd.append('name', formData.name);
+        fd.append('category', formData.category);
+        fd.append('percent', formData.percent);
+        fd.append('isAvailable', formData.isAvailable);
+        fd.append('ingredients', JSON.stringify(formData.ingredients));
+        fd.append('photo', formData.photo);
+
+        payload = fd;
+      } else {
+        // Без фото — просто JSON
+        payload = formData;
+      }
+
+      await dispatch(addDishThunk(payload));
+      Notify.success(`Блюдо "${formData.name}" успешно создано!`);
     } catch (error) {
-      Notify.failure(`Ошибка при создании блюда "${formData.name}":`, error);
+      Notify.failure(`Ошибка при создании блюда "${formData.name}": ${error.message}`);
     }
   };
-
+  
   return { initialStateForm, onCreateDish };
 }
 

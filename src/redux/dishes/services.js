@@ -30,13 +30,23 @@ export const addDishThunk = createAsyncThunk(
   'dishes/addDish',
   async (dishData, thunkApi) => {
     try {
-      const { data } = await instance.post(`/api/dishes`, dishData);
+      const config = {};
+
+      // Если dishData — это FormData, не ставим Content-Type
+      if (!(dishData instanceof FormData)) {
+        config.headers = {
+          'Content-Type': 'application/json',
+        };
+      }
+
+      const { data } = await instance.post('/api/dishes', dishData, config);
       return data;
     } catch (err) {
-      return thunkApi.rejectWithValue(err.response.data.message);
+      return thunkApi.rejectWithValue(err.response?.data?.message || err.message);
     }
   }
 );
+
 
 export const updateDishThunk = createAsyncThunk(
   'dishes/updateDish',

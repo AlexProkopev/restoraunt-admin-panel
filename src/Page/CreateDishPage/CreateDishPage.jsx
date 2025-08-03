@@ -7,7 +7,7 @@ import useDishesLogic from '../../hooks/useDishesLogic';
 
 function CreateDishPage() {
   const { initialStateForm, onCreateDish } = useDishesLogic();
-  const { form, errors, handleChange, handleSubmit } = useCreateModalForm({
+  const { form, setForm, errors, handleChange, handleSubmit } = useCreateModalForm({
     initialForm: initialStateForm,
     validationSchema: schemaCreateDish,
     onCreate: onCreateDish,
@@ -16,7 +16,7 @@ function CreateDishPage() {
   return (
     <Box>
       <Typography variant="h4" gutterBottom> Создание нового блюда </Typography>
-      <CreateDishForm form={form} handleChange={handleChange} errors={errors} />
+      <CreateDishForm form={form} handleChange={handleChange} errors={errors} setForm={setForm}/>
       <IngredientsSelector form={form} handleChange={handleChange}  error={errors.ingredients} />
 
       <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}> Создать блюдо </Button>

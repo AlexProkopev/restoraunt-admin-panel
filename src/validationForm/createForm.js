@@ -74,11 +74,25 @@ export const schemaCreateDish = yup.object().shape({
           .number()
           .typeError('Количество должно быть числом')
           .required('Укажите количество')
-          
       })
     )
     .min(1, 'Добавьте хотя бы один ингредиент')
     .required('Ингредиенты обязательны'),
+    photo: yup
+  .mixed()
+  .test(
+    'fileSize',
+    'Файл слишком большой (максимум 5 МБ)',
+    value => !value || (value.size <= 5 * 1024 * 1024) 
+  )
+  .test(
+    'fileType',
+    'Неверный формат файла',
+    value =>
+      !value ||
+      ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'].includes(value.type)
+  )
+  .nullable()
 });
 
 

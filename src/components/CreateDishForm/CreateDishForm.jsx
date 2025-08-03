@@ -1,11 +1,18 @@
-import { Box } from '@mui/material';
+import { Box,} from '@mui/material';
 import NameField from './fields/NameField';
 import CategoryField from './fields/CategoryField';
 import AvailabilityField from './fields/AvailabilityField';
 import MarkupField from './fields/MarkupField';
+import PhotoUploadFields from './fields/PhotoUploadFields';
 
 
-function CreateDishForm({ form, handleChange, errors }) {
+function CreateDishForm({ form, handleChange, errors, setForm }) {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleChange('photo', file); 
+    }
+  };
   return (
     <Box>
       <NameField
@@ -33,6 +40,9 @@ function CreateDishForm({ form, handleChange, errors }) {
         error={!!errors.percent}
         helperText={errors.percent}
       />
+      
+     
+      <PhotoUploadFields form={form} errors={errors} handleFileChange={handleFileChange} setForm={setForm}/>
     </Box>
   );
 }
