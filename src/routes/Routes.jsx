@@ -14,6 +14,7 @@ import Menu from "../Page/Menu/Menu";
 import Ingredients from "../Page/Ingredients/Ingredients";
 import Dishes from "../Page/Dishes/Dishes";
 import CreateDishPage from "../Page/CreateDishPage/CreateDishPage";
+import CurrentMenu from "../components/CurrentMenu/CurrentMenu";
 
 export const LOGIN_PAGE = "/login";
 export const ORDERS_PAGE = "/orders";
@@ -52,7 +53,8 @@ export const ROUTES = [
   children: [
     { path: "ingredients", element: <Ingredients /> },
     {path: "dishes",element: <Dishes />,},
-    {path: "create",element: <CreateDishPage/>,}
+    {path: "create",element: <CreateDishPage/>,},
+    {path: "current",element: <CurrentMenu/>,}
   ],
 },
 

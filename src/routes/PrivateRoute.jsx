@@ -10,7 +10,7 @@ const PrivateRoute = ({ children, navigateTo = LOGIN_PAGE }) => {
   if (!isAuth) {
     return <Navigate to={navigateTo} state={{ from: location }} replace />;
   }
-  return children;
+  return children; 
 };
 
 export default PrivateRoute;
