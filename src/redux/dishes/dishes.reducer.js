@@ -56,6 +56,7 @@ const dishesRequest = createSlice({
       })
       .addCase(updateDishThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        console.log(payload);
         const index = state.dishes.findIndex(
           (dish) => dish._id === payload._id
         );

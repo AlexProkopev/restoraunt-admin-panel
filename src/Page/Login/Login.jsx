@@ -9,16 +9,18 @@ import {
   Slide,
   useTheme,
 } from '@mui/material';
-import { selectIsLoading } from '../../redux/authentification/authentication.selectors';
+import { selectIsError, selectIsLoading } from '../../redux/authentification/authentication.selectors';
 import { useForm } from './useForm';
 import { button, container, inputField, title } from './Login.styles';
 import { fetchUser } from '../../redux/authentification/services';
 import { HOME_PAGE } from '../../routes/Routes';
 import Loader from '../../components/Loader/Loader';
+import { Notify } from 'notiflix';
 
 const Login = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
@@ -51,9 +53,10 @@ const Login = () => {
     }
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return <Loader />;
+  if (isError) Notify.failure(`Ошибка '${isError}', попробуйте снова`);
+  console.log(isError);
+
 
   return (
     <>

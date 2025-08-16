@@ -11,7 +11,8 @@ export const fetchUser = createAsyncThunk(
       localStorage.setItem('token', data.token);
       return data;
     } catch (err) {
-      return thunkApi.rejectWithValue(err.response?.data?.message || 'Ошибка');
+      console.log(err.message);
+      return thunkApi.rejectWithValue(err.message || 'Ошибка');
     }
   }
 );

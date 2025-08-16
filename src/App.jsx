@@ -8,6 +8,7 @@ import { darkTheme, lightTheme, themeFromLocal } from './Themes/Themes.jsx';
 import { useDispatch } from 'react-redux';
 import { refreshThunk } from './redux/authentification/services.js';
 import { ROUTES } from './routes/Routes.jsx';
+import NotifyComponent from './components/NotifyComponent/NotifyComponent.jsx';
 
 function App() {
   const [isDark, setIsDark] = useState(themeFromLocal);
@@ -25,10 +26,13 @@ function App() {
       </Route>
     ));
 
+
+
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <CssBaseline />
       <SwitchTheme isDark={isDark} setIsDark={setIsDark} />
+      <NotifyComponent/>
       <Routes>
          {renderRoutes(ROUTES)}
         <Route path="*" element={<ErrorPage />} />

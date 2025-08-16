@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addDishThunk } from '../redux/dishes/services';
+import { addDishThunk, updateDishThunk } from '../redux/dishes/services';
 import { Notify } from 'notiflix';
 
 
@@ -14,21 +14,17 @@ function useDishesLogic() {
   };
   const dispatch = useDispatch();
 
-  // const onCreateDish = async (formData) => {
-  //   try {
-  //     await dispatch(addDishThunk(formData));
-  //      Notify.success(`Блюдо "${formData.name}" успешно создано!`);
-  //   } catch (error) {
-  //     Notify.failure(`Ошибка при создании блюда "${formData.name}":`, error);
-  //   }
-  // };
+  const handleShowInMenu = (id, isAvailable) => {
+      dispatch(updateDishThunk({ id, updateData: { isAvailable: !isAvailable } }));
+    };
 
+
+  
   const onCreateDish = async (formData) => {
     try {
       let payload;
 
       if (formData.photo instanceof File) {
-        // Если есть фото, собираем FormData
         const fd = new FormData();
         fd.append('name', formData.name);
         fd.append('category', formData.category);
@@ -39,7 +35,6 @@ function useDishesLogic() {
 
         payload = fd;
       } else {
-        // Без фото — просто JSON
         payload = formData;
       }
 
@@ -49,8 +44,8 @@ function useDishesLogic() {
       Notify.failure(`Ошибка при создании блюда "${formData.name}": ${error.message}`);
     }
   };
-  
-  return { initialStateForm, onCreateDish };
+
+  return { initialStateForm, onCreateDish, handleShowInMenu };
 }
 
 export default useDishesLogic;

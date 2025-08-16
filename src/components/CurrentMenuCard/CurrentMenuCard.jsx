@@ -12,8 +12,8 @@ function DishCard({ dish }) {
       <Card
         sx={{
           position: "relative",
-          width: 300,
-          minHeight: 380,
+          width: 220,
+          minHeight: 250,
           overflow: "hidden",
           borderRadius: 3,
           background: "linear-gradient(145deg, #1e1e1e, #2a2a2a)",
@@ -72,15 +72,11 @@ function DishCard({ dish }) {
           >
             {dish.name}
           </Typography>
-          <Typography variant="body2" sx={{ opacity: 0.85 }}>
-            {dish.category}
-          </Typography>
+       
           <Typography variant="body1" sx={{ mt: 1, fontWeight: 500 }}>
             {dish.price.toFixed(2)} ₽
           </Typography>
-          <Typography variant="body1" sx={{ opacity: 0.85 }}>
-            Наценка {dish.percent}%
-          </Typography>
+        
           <Typography variant="body1" sx={{ opacity: 0.85 }}>
             Вес {dish.weight} г
           </Typography>
